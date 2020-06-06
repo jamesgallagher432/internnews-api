@@ -2,12 +2,8 @@
 
 one:
   url: MyString
-  text: MyString
-  title: MyString
-  slug: MyString
+  description: MyText
 
 two:
   url: MyString
-  text: MyString
-  title: MyString
-  slug: MyString
+  description: MyText
