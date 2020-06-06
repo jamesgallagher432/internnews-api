@@ -6,5 +6,7 @@ module Types
     field :title, String, null: false
     field :slug, String, null: false
     field :by, UserType, null: true, method: :user
+    field :upvotes, [Types::UpvoteType], null: false
+    field :comments, [Types::CommentType], null: false
   end
 end
