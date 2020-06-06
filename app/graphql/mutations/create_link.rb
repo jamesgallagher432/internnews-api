@@ -14,7 +14,8 @@ module Mutations
         description: description,
         url: url,
         title: title,
-        slug: slug
+        slug: slug,
+        user: context[:current_user]
       )
     end
   end

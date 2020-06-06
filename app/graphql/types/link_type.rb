@@ -5,5 +5,6 @@ module Types
     field :description, String, null: false
     field :title, String, null: false
     field :slug, String, null: false
+    field :by, UserType, null: true, method: :user
   end
 end
