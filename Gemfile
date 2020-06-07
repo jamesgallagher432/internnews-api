@@ -44,3 +44,5 @@ gem 'bcrypt', '~> 3.1.13'
 gem 'search_object_graphql', '0.3.1'
 
 gem 'listen', '>= 3.0.5', '< 3.2'
+
+gem 'rack-cors', :require => 'rack/cors'
