@@ -19,7 +19,10 @@ module Mutations
 
       token = AuthToken.token(user)
 
-      { user: user, token: token }
+      OpenStruct.new({
+        token: token,
+        user: user
+      })
     end
   end
 end
