@@ -5,6 +5,6 @@ module Types
     field :email, String, null: false
     field :upvotes, [UpvoteType], null: false
     field :links, [LinkType], null: false
-    field :comments, [Types::CommentType], null: false
+    field :comments, [CommentType], null: false
   end
 end

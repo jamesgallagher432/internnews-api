@@ -18,14 +18,10 @@ ActiveRecord::Schema.define(version: 2020_06_06_182231) do
   create_table "comments", force: :cascade do |t|
     t.bigint "link_id", null: false
     t.string "description"
-    t.bigint "parent_id"
-    t.bigint "kids_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.index ["kids_id"], name: "index_comments_on_kids_id"
     t.index ["link_id"], name: "index_comments_on_link_id"
-    t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -66,8 +62,6 @@ ActiveRecord::Schema.define(version: 2020_06_06_182231) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "comments", "comments", column: "kids_id"
-  add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "links"
   add_foreign_key "comments", "users"
   add_foreign_key "links", "users"
