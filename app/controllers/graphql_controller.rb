@@ -23,15 +23,14 @@ class GraphqlController < ApplicationController
   private
 
   def current_user
-    # if we want to change the sign-in strategy, this is the place to do it
-    return unless session[:token]
-
-    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-    token = crypt.decrypt_and_verify session[:token]
-    user_id = token.gsub('user-id:', '').to_i
-    User.find user_id
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    nil
+    if request.headers['Authorization'] != "null"
+      return nil if request.headers['Authorization'].blank?
+      token = request.headers['Authorization'].split(' ').last
+      return nil if token.blank?
+      AuthToken.verify(token)
+    else
+      return 0
+    end
   end
 
   # Handle form data, JSON body, or a blank value

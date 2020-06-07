@@ -1,24 +1,16 @@
-module AuthToken
-  module_function
-
-  PREFIX = 'user-id'.freeze
-
-  def token_for_user(user)
-    crypt.encrypt_and_sign("#{PREFIX}#{user.id}")
+class AuthToken
+  def self.key
+    Rails.application.secrets.secret_key_base
   end
 
-  def user_from_token(token)
-    return if token.blank?
-
-    user_id = crypt.decrypt_and_verify(token).gsub(PREFIX, '').to_i
-    User.find_by id: user_id
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    nil
+  def self.token(user)
+    payload = {user_id: user.id}
+    JsonWebToken.sign(payload, key: key)
   end
 
-  def crypt
-    ActiveSupport::MessageEncryptor.new(
-      Rails.application.secrets.secret_key_base.byteslice(0..31)
-    )
+  def self.verify(token)
+    result = JsonWebToken.verify(token, key: key)
+    return nil if result[:error]
+    User.find_by(id: result[:ok][:user_id])
   end
 end

@@ -17,10 +17,7 @@ module Mutations
       return unless user
       return unless user.authenticate(credentials[:password])
 
-      # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
-      token = AuthToken.token_for_user(user)
-
-      context[:session][:token] = token
+      token = AuthToken.token(user)
 
       { user: user, token: token }
     end
