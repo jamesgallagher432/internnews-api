@@ -4,6 +4,11 @@ module Types
     # `all_links` is automatically camelcased to `allLinks`
     field :all_links, [LinkType], null: false do
       argument :user, Int, required: false
+      argument :link, Int, required: false
+    end
+
+    field :all_users, [UserType], null: false do
+      argument :user, Int, required: false
     end
 
     field :all_comments, [CommentType], null: false do
@@ -12,11 +17,21 @@ module Types
     end
 
     # this method is invoked, when `all_link` fields is being resolved
-    def all_links(user: nil)
+    def all_links(user: nil, link: nil)
       if user
         Link.where(user: user)
+      elsif link
+        Link.where(id: link)
       else
-        Link.all
+        Link.all.order(created_at: :desc)
+      end
+    end
+
+    def all_users(user: nil)
+      if user
+        User.where(id: user).limit(1)
+      else
+        User.all
       end
     end
 
