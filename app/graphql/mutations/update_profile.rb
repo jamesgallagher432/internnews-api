@@ -1,15 +1,25 @@
 module Mutations
   class UpdateProfile < BaseMutation
-    argument :username, String, required: true
-    argument :email, String, required: true
-    argument :about, String, required: true
+    argument :username, String, required: false
+    argument :email, String, required: false
+    argument :about, String, required: false
 
     type Types::UserType
 
     def resolve(username: nil, email: nil, about: nil)
-      # Replace this with actual user code session[:current_user]
+      if context[:current_user].blank?
+        return GraphQL::ExecutionError.new("You must be authenticated to update your profile.")
+      end
 
-      user = User.first
+      user = User.find_by(id: context[:current_user].id)
+
+      if username.blank?
+        return GraphQL::ExecutionError.new("Please specify a username")
+      end
+
+      if email.blank?
+        return GraphQL::ExecutionError.new("Please specify an email")
+      end
 
       user.username = username
       user.email = email
