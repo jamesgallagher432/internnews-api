@@ -21,8 +21,11 @@ module Mutations
         return GraphQL::ExecutionError.new("You need to be an admin to delete a link.")
       end
 
+      comments = Comment.where(link: check_for_link).destroy_all
+      upvotes = Upvote.where(link: check_for_link).destroy_all
+
       check_for_link.delete
-      
+
       return check_for_link
     end
   end
