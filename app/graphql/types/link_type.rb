@@ -8,5 +8,7 @@ module Types
     field :by, UserType, null: true, method: :user
     field :upvotes, [Types::UpvoteType], null: false
     field :comments, [Types::CommentType], null: false
+    field :created_at, DateTimeType, null: false
+    field :updated_at, DateTimeType, null: false
   end
 end
