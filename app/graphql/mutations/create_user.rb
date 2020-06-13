@@ -36,6 +36,12 @@ module Mutations
         return GraphQL::ExecutionError.new("This email is being used by another account")
       end
 
+      strength = PasswordStrength.test(username, auth_provider&.[](:credentials)&.[](:password))
+
+      if !strength.valid?(:good)
+        return GraphQL::ExecutionError.new("Please choose a more secure password")
+      end
+
       User.create!(
         username: username,
         email: auth_provider&.[](:credentials)&.[](:email),

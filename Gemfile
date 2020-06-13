@@ -48,3 +48,5 @@ gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'json_web_token'
+
+gem 'password_strength'

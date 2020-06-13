@@ -9,18 +9,18 @@ module Mutations
 
     def resolve(credentials: nil)
       # basic validation
-      if credentials[:email].blank?
-        return GraphQL::ExecutionError.new("Please specify an email")
+      if credentials[:username].blank?
+        return GraphQL::ExecutionError.new("Please specify an username")
       end
 
       if credentials[:password].blank?
         return GraphQL::ExecutionError.new("Please specify a password")
       end
 
-      user = User.find_by email: credentials[:email]
+      user = User.find_by username: credentials[:username]
 
       if !user
-        return GraphQL::ExecutionError.new("No user exists with this email")
+        return GraphQL::ExecutionError.new("No user exists with this username")
       end
 
       if !user.authenticate(credentials[:password])
