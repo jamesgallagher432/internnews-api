@@ -19,6 +19,8 @@ module Mutations
 
       token = AuthToken.token(user)
 
+      context[:session][:token] = token
+
       OpenStruct.new({
         token: token,
         user: user
