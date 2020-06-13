@@ -1,24 +1,50 @@
-# README
+# Intern News API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Intern News is a news aggregator for news about internships and young people working in tech.
 
-Things you may want to cover:
+![Image of Intern News homepage](https://github.com/jamesgallagher432/internnews-client/blob/master/homepage.png?raw=true)
 
-* Ruby version
+## Installation
 
-* System dependencies
+To setup Intern News, follow these steps:
 
-* Configuration
+1. Install packages
 
-* Database creation
+`bundle install`
 
-* Database initialization
+2. Set up the database
 
-* How to run the test suite
+```
+rails db:setup
+rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Create demo user and link
 
-* Deployment instructions
+`rails db:seed`
 
-* ...
+4. Run in development mode
+
+`rails s`
+
+You will also need to install the client to set up Intern News. The code for the Intern News client is hosted [here](https://github.com/jamesgallagher432/internnews-client).
+
+## Stack
+
+This project was built using the following tools:
+
+- Ruby on Rails
+- GraphQL
+- PostgreSQL
+
+## Contributing
+
+Pull requests to Intern News are welcome. If you want to make a major change, open an issue first so we can discuss what you would like to change.
+
+## License
+
+This project is licensed under the terms of the MIT license.
+
+## Authors and acknowledgment
+
+This project was built by me, James. The inspiration for this project was Y Combinator's [Hacker News](https://news.ycombinator.com), and the [How to GraphQL](https://howtographql.com) tutorial on building a news aggregator.
