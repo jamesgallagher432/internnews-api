@@ -23,11 +23,11 @@ class GraphqlController < ApplicationController
   private
 
   def current_user
-    if request.headers['Authorization'] != "null"
-      return nil if request.headers['Authorization'].blank?
-      token = request.headers['Authorization'].split(' ').last
+    if request.headers['Authentication'] != "null"
+      return nil if request.headers['Authentication'].blank?
+      token = request.headers['Authentication']
       return nil if token.blank?
-      JWT.verify(token)
+      AuthToken.verify(token)
     else
       return 0
     end
