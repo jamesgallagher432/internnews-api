@@ -7,6 +7,18 @@ module Mutations
     type Types::CommentType
 
     def resolve(link_id: nil, description: nil, comment_id: nil)
+      if context[:current_user].blank?
+        return GraphQL::ExecutionError.new("You must be authenticated to create a comment.")
+      end
+
+      if Link.find(link_id).blank?
+        return GraphQL::ExecutionError.new("This link does not exist")
+      end
+
+      if description.blank?
+        return GraphQL::ExecutionError.new("Comments cannot be blank")
+      end
+
       if comment_id
         Comment.create!(
           link: Link.find(link_id),
