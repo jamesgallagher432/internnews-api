@@ -25,21 +25,21 @@ module Mutations
         return GraphQL::ExecutionError.new("Please specify a link or a description")
       end
 
-      require 'net/http'
-
-      def working_url?(url_str)
-        url = URI.parse(url_str)
-        Net::HTTP.start(url.host, url.port) do |http|
-          http.head(url.request_uri).code == '200'
-        end
-        true
-      rescue
-        false
-      end
-
-      if working_url?(url) == false
-        return GraphQL::ExecutionError.new("Please specify a valid link")
-      end
+      # require 'net/http'
+      #
+      # def working_url?(url_str)
+      #   url = URI.parse(url_str)
+      #   Net::HTTP.start(url.host, url.port) do |http|
+      #     http.head(url.request_uri).code == '200'
+      #   end
+      #   true
+      # rescue
+      #   false
+      # end
+      #
+      # if working_url?(url) == false
+      #   return GraphQL::ExecutionError.new("Please specify a valid link")
+      # end
 
       Link.create!(
         description: description,
