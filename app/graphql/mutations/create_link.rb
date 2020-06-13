@@ -32,6 +32,7 @@ module Mutations
         Net::HTTP.start(url.host, url.port) do |http|
           http.head(url.request_uri).code == '200'
         end
+        true
       rescue
         false
       end
