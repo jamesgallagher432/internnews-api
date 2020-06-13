@@ -12,6 +12,30 @@ module Mutations
     type Types::UserType
 
     def resolve(username: nil, auth_provider: nil)
+      if username.blank?
+        return GraphQL::ExecutionError.new("Please specify a username")
+      end
+
+      if auth_provider&.[](:credentials)&.[](:email).blank?
+        return GraphQL::ExecutionError.new("Please specify an email")
+      end
+
+      if auth_provider&.[](:credentials)&.[](:password).blank?
+        return GraphQL::ExecutionError.new("Please specify a password")
+      end
+
+      check_for_username = User.where(username: username)
+
+      if check_for_username.present?
+        return GraphQL::ExecutionError.new("This username has been taken")
+      end
+
+      check_for_email = User.where(email: auth_provider&.[](:credentials)&.[](:email))
+
+      if check_for_email.present?
+        return GraphQL::ExecutionError.new("This email is being used by another account")
+      end
+
       User.create!(
         username: username,
         email: auth_provider&.[](:credentials)&.[](:email),
