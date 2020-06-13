@@ -16,6 +16,8 @@ module Types
       argument :link, Int, required: false
     end
 
+    field :current_user, [UserType], null: false
+
     # this method is invoked, when `all_link` fields is being resolved
     def all_links(user: nil, link: nil)
       if user
@@ -43,6 +45,10 @@ module Types
       else
         Comment.all
       end
+    end
+
+    def current_user
+      User.where(id: context[:current_user])
     end
   end
 end
