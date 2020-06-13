@@ -10,7 +10,7 @@ module Mutations
 
     def resolve(description: nil, url: nil, title: nil)
       if context[:current_user].blank?
-        return GraphQL::ExecutionError.new("You must be authenticated to create a link.")
+        return GraphQL::ExecutionError.new("You need to sign in.")
       end
 
       if title.blank?

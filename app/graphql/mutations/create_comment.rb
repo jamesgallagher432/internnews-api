@@ -8,7 +8,7 @@ module Mutations
 
     def resolve(link_id: nil, description: nil, comment_id: nil)
       if context[:current_user].blank?
-        return GraphQL::ExecutionError.new("You must be authenticated to create a comment.")
+        return GraphQL::ExecutionError.new("You need to sign in.")
       end
 
       if Link.find(link_id).blank?

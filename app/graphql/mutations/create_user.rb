@@ -40,7 +40,8 @@ module Mutations
         username: username,
         email: auth_provider&.[](:credentials)&.[](:email),
         password: auth_provider&.[](:credentials)&.[](:password),
-        about: "I have just signed up to Intern News."
+        about: "I have just signed up to Intern News.",
+        is_admin: false
       )
     end
   end

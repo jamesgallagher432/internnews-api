@@ -10,7 +10,8 @@ user = User.create(
   username: "jamesg_oca",
   email: "jamesg@jamesg.app",
   about: "Technical Writer at Career Karma. Indie Web advocate. 🕸️",
-  password: "123456"
+  password: "123456",
+  is_admin: true
 )
 
 Link.create(

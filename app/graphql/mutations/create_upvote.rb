@@ -6,10 +6,10 @@ module Mutations
 
     def resolve(link_id: nil)
       if context[:current_user].blank?
-        return GraphQL::ExecutionError.new("This user does not exist.")
+        return GraphQL::ExecutionError.new("You need to sign in.")
       end
 
-      check_for_upvote = Upvote.where(link: Link.find(link_id), user: context[:current_user]).first
+      check_for_upvote = Upvote.where(link: Link.find(link_id), user: context[:current_user])
 
       if check_for_upvote.blank?
         Upvote.create!(
