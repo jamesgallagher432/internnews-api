@@ -29,6 +29,8 @@ rails db:migrate
 
 You will also need to install the client to set up Intern News. The code for the Intern News client is hosted [here](https://github.com/jamesgallagher432/internnews-client).
 
+You can view the live version of this project at [internnews.vercel.app](internnews.vercel.app).
+
 ## Stack
 
 This project was built using the following tools:
