@@ -72,6 +72,8 @@ GEM
       railties
       sprockets-rails
     graphql (1.9.17)
+    graphql-query-resolver (0.2.0)
+      graphql (~> 1.0, >= 1.0.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
@@ -189,6 +191,7 @@ DEPENDENCIES
   byebug
   graphiql-rails (= 1.7.0)
   graphql (= 1.9.17)
+  graphql-query-resolver
   jbuilder (~> 2.7)
   json_web_token
   listen (>= 3.0.5, < 3.2)

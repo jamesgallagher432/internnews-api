@@ -2,11 +2,16 @@ module Types
   class QueryType < BaseObject
     # queries are just represented as fields
     # `all_links` is automatically camelcased to `allLinks`
+    add_field GraphQL::Types::Relay::NodeField
+    add_field GraphQL::Types::Relay::NodesField
+
     field :all_links, [LinkType], null: false do
       argument :user, Int, required: false
       argument :link, String, required: false
       argument :order, String, required: false
     end
+
+    field :all_links, resolver: Resolvers::LinksSearch
 
     field :all_users, [UserType], null: false do
       argument :user, Int, required: false
@@ -18,41 +23,6 @@ module Types
     end
 
     field :current_user, [UserType], null: false
-
-    # this method is invoked, when `all_link` fields is being resolved
-    def all_links(user: nil, link: nil, order: nil)
-      if user
-        Link.where(user: user)
-      elsif link
-        Link.where(slug: link)
-      elsif order
-        if order == "top"
-          Link
-            .left_joins(:upvotes)
-            .group(:id)
-            .order('COUNT(upvotes.id) DESC')
-            .limit(25)
-        elsif order == "best"
-          Link
-            .left_joins(:upvotes)
-            .group(:id)
-            .order('COUNT(upvotes.id) DESC')
-            .limit(25)
-        else
-          Link
-            .where('created_at > ? AND created_at < ?',
-                Date.today.last_month.beginning_of_month,
-                Date.today)
-            .order(created_at: :desc).limit(25)
-        end
-      else
-        Link
-          .where('created_at > ? AND created_at < ?',
-              Date.today.last_month.beginning_of_month,
-              Date.today)
-          .order(created_at: :desc).limit(25)
-      end
-    end
 
     def all_users(user: nil)
       if user

@@ -50,3 +50,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'json_web_token'
 
 gem 'password_strength'
+
+gem 'search_object_graphql', '0.3.1'
+
+gem 'graphql-query-resolver'
