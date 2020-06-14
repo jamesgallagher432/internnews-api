@@ -17,6 +17,7 @@ class Resolvers::LinksSearch
 
   option :filter, type: LinkFilter, with: :apply_filter
   option :first, type: types.Int, with: :apply_first
+  option :last, type: types.Int, with: :apply_last
   option :skip, type: types.Int, with: :apply_skip
   option :user, type: types.Int, with: :apply_user
   option :link, type: types.String, with: :apply_link
@@ -40,7 +41,11 @@ class Resolvers::LinksSearch
   end
 
   def apply_first(scope, value)
-    scope.limit(value)
+    scope.where('links.id > ?', value)
+  end
+
+  def apply_last(scope, value)
+    scope.where('links.id < ?', value)
   end
 
   def apply_skip(scope, value)
