@@ -17,8 +17,8 @@ module Mutations
 
       user = User.find_by(id: context[:current_user].id)
 
-      if user.is_admin == false
-        return GraphQL::ExecutionError.new("You need to be an admin to delete a link.")
+      if user.is_admin == false && check_for_link.user.id != user.id
+        return GraphQL::ExecutionError.new("You don't have permission to delete this link.")
       end
 
       comments = Comment.where(link: check_for_link).destroy_all
